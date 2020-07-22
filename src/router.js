@@ -12,17 +12,16 @@ export default new Router({
       path:'*',
       redirect,
     },
-
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      meta: { requiresAuth: true },
     },
     {
       path: '/login',
       name: 'Login',
       component: Login,
-      meta: { requiresAuth: true },
     }
   ]
 })
