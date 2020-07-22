@@ -12,6 +12,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "./assets/all"; // 引入 all.scss 這裡 .scss 可省略不寫
+  @import "./assets/bootstrap"; // 引入 all.scss 這裡 .scss 可省略不寫
 </style>
 

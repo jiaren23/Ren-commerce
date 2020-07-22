@@ -1,9 +1,6 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -12,11 +9,8 @@ Vue.config.productionTip = false;
 
 axios.defaults.withCredentials = true;
 
-
-
 router.beforeEach((to, from, next) => {
   console.log('to',to,'from',from,'next',next)
-  // next()
   if(to.meta.requiresAuth){
      const api = `${process.env.APIPATH}/api/user/check`;
      axios.post(api).then((response)=>{
@@ -32,16 +26,11 @@ router.beforeEach((to, from, next) => {
   }else{
     next()
   }
- 
-
-
 })
 
-
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: { App }, // components: {APP:APP}
   template: '<App/>'
 })
