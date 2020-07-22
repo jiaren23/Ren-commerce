@@ -9,6 +9,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path:'*',
+      redirect,
+    },
+
+    {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
@@ -17,6 +22,7 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      meta: { requiresAuth: true },
     }
   ]
 })
