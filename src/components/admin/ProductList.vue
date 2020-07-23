@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="text-right mt-4" data>
+            <loading :active.sync="isLoading" loader="dots"/>
             <button 
                 class="btn btn-primary"
                 @click="openModal(true)">新增商品</button>
@@ -57,9 +58,9 @@
                             </div>
                             <div class="form-group">
                             <label for="customFile">或 上傳圖片
-                                <!-- <i 
+                                <i 
                                 class="fas fa-spinner fa-spin"
-                                v-if="status.fileUploading"></i> -->
+                                v-if="status.fileUploading"></i>
                             </label>
                             <input 
                                 type="file" 
@@ -212,15 +213,21 @@ import $ from 'jquery';
                 products:[],
                 tempProduct:{}, // for Modal data
                 isNew : false,
+                isLoading : false, // for  vue loading package  
+                status:{           // for  fontawesome (局部 loading 畫面)
+                    fileUploading : false,
+                }
             }
         },
         methods : {
             getProducts(){
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
                 const vm = this;
+                this.isLoading = true;
                 this.$http.get(api).then((response)=>{
                     console.log(response.data);                   
                         vm.products = response.data.products;
+                        vm.isLoading = false;
                 })
             },
             openModal(isNew,origionItem){
@@ -258,12 +265,13 @@ import $ from 'jquery';
                 const uploadedFile = this.$refs.files.files[0];
                 let formData = new FormData;
                 formData.append('file-to-upload',uploadedFile)
-
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
                 const vm = this;
+                this.status.fileUploading = true;
                 this.$http.post(api,formData).then((response)=>{
                     if(response.data.success){ 
-                      vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl)     // vm.tempProduct.imageUrl = response.data.imageUrl
+                      vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl);     // vm.tempProduct.imageUrl = response.data.imageUrl
+                      vm.status.fileUploading = false;
                     }
                 })
             }
