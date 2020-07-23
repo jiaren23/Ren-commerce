@@ -66,7 +66,7 @@
                                 id="customFile" 
                                 class="form-control"
                                 ref="files"
-                                > <!--@change="uploadFile" 上傳圖片 -->
+                                @change="uploadFile"> <!--@change="uploadFile" 上傳圖片 -->
                             </div>
                             <img 
                             img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
@@ -214,7 +214,7 @@ import $ from 'jquery';
                 isNew : false,
             }
         },
-        methods :{
+        methods : {
             getProducts(){
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
                 const vm = this;
@@ -233,7 +233,7 @@ import $ from 'jquery';
                 }
                 $('#productModal').modal('show')
             },
-             updateProduct(){
+            updateProduct(){
                 let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
                 let httpMethod = 'post'
                 const vm = this;
@@ -253,6 +253,20 @@ import $ from 'jquery';
                     }
                 })
             },
+            uploadFile(){
+                console.log(this);
+                const uploadedFile = this.$refs.files.files[0];
+                let formData = new FormData;
+                formData.append('file-to-upload',uploadedFile)
+
+                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
+                const vm = this;
+                this.$http.post(api,formData).then((response)=>{
+                    if(response.data.success){ 
+                      vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl)     // vm.tempProduct.imageUrl = response.data.imageUrl
+                    }
+                })
+            }
         },
         created(){
             this.getProducts();
