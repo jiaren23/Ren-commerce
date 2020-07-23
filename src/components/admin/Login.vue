@@ -23,7 +23,7 @@
             <button 
                 type="submit"
                 @click="sigin"
-                @keydown.enter="sigin">Sign in</button>
+                @keydown.enter="sigin">登入</button>
         </form>
     </div>
 </template>   
@@ -80,7 +80,8 @@
             padding: 5px;
             position: absolute;
             right: 0;
-            border-radius:$btn-radius; 
+            border-radius:$btn-radius;
+            border: solid $btn-border; 
             background-color: #fff;
         }
     }

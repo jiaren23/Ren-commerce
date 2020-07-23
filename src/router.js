@@ -38,6 +38,18 @@ export default new Router({
           component: ProductList,
           meta: { requiresAuth: true },
         },
+        {
+          path:'productList',
+          name: 'ProductList',
+          component: ProductList,
+          meta: { requiresAuth: true },
+        },
+        {
+          path:'productList',
+          name: 'ProductList',
+          component: ProductList,
+          meta: { requiresAuth: true },
+        },
       ]
     }
   ]
