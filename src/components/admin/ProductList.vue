@@ -24,7 +24,9 @@
                         <span v-if="item.is_enabled" class="text-success">啟用</span>
                         <span v-else>未啟用</span>
                     </td>
-                    <td><button class="btn btn-outline-primary btn-sm   ">編輯</button></td>
+                    <td><button 
+                            class="btn btn-outline-primary btn-sm"
+                            @click="openModal(false,item)">編輯</button></td>
                 </tr>
             </tbody>
         </table>
@@ -147,14 +149,14 @@
                             <div class="form-group">
                             <div class="form-check">
                                 <input 
-                                class="form-check-input" 
-                                type="checkbox"
-                                id="is_enabled"
-                                :true-value="1"
-                                :false-value="1"
-                                v-model="tempProduct.is_enabled"><!-- v-model -->
+                                    class="form-check-input" 
+                                    type="checkbox"
+                                    id="is_enabled"
+                                    :true-value="1"
+                                    :false-value="0"
+                                    v-model="tempProduct.is_enabled"><!-- v-model -->
                                 <label class="form-check-label" for="is_enabled">
-                                是否啟用
+                                    是否啟用
                                 </label>
                             </div>
                             </div>
@@ -164,9 +166,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
                         <button 
-                        type="button" 
-                        class="btn btn-primary" 
-                        >確認</button>     <!--  @click="updateProduct" v-on -->
+                            type="button" 
+                            class="btn btn-primary" 
+                            @click="updateProduct">確認</button>     <!--  @click="updateProduct" v-on -->
                     </div>
                 </div>
             </div>
@@ -209,6 +211,7 @@ import $ from 'jquery';
             return {
                 products:[],
                 tempProduct:{}, // for Modal data
+                isNew : false,
             }
         },
         methods :{
@@ -220,9 +223,36 @@ import $ from 'jquery';
                         vm.products = response.data.products;
                 })
             },
-            openModal(){
+            openModal(isNew,origionItem){
+                if(isNew){
+                    this.tempProduct = {};
+                    this.isNew = true;
+                }else{
+                    this.tempProduct = Object.assign({},origionItem);
+                    this.isNew = false;
+                }
                 $('#productModal').modal('show')
-            }
+            },
+             updateProduct(){
+                let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
+                let httpMethod = 'post'
+                const vm = this;
+                if(!vm.isNew){  // 這裡會判斷 新建產品 、 編輯產品 要使用的 api path 和 http method 是不一樣的
+                    api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+                    httpMethod = 'put';
+                }
+                this.$http[httpMethod](api,{data:vm.tempProduct}).then((response)=>{
+                    console.log(response.data);
+                    if(response.data.success){
+                        $('#productModal').modal('hide');
+                        vm.getProducts();
+                    }else{
+                        console.log("產品建立失敗")
+                        $('#productModal').modal('hide');
+                        vm.getProducts();
+                    }
+                })
+            },
         },
         created(){
             this.getProducts();
