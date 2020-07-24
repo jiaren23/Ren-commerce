@@ -32,6 +32,8 @@
             </tbody>
         </table>
 
+        <Pagination :pages="pagination" @emitPages="getProducts"/>
+
         <!-- Modal -->
         <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -206,29 +208,34 @@
 
 <script>
 import $ from 'jquery';
+import Pagination from '../component/Pagination'
 
     export default{
         data(){
             return {
                 products:[],
-                tempProduct:{}, // for Modal data
-                isNew : false,
+                tempProduct:{},    // for Modal data
+                isNew : false,     // for Modal open decide "new" or "edit" 
                 isLoading : false, // for  vue loading package  
                 status:{           // for  fontawesome (局部 loading 畫面)
                     fileUploading : false,
-                }
+                },
+                pagination:{},     // 
             }
+        },
+        components:{
+            Pagination
         },
         methods : {
             getProducts(){
-              
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
                 const vm = this;
                 this.isLoading = true;
                 this.$http.get(api).then((response)=>{
                     console.log(response.data);                   
-                        vm.products = response.data.products;
-                        vm.isLoading = false;
+                    vm.products = response.data.products;
+                    vm.isLoading = false;
+                    vm.pagination = response.data.pagination;
                 })
             },
             openModal(isNew,origionItem){
