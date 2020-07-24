@@ -14,6 +14,7 @@
                 <th width="120">售價</th>
                 <th width="80">啟用狀態</th>
                 <th width="80">編輯</th>
+                <th width="80">刪除</th>
             </thead>
             <tbody>
                 <tr v-for="item in products" :key="item.id">
@@ -27,12 +28,55 @@
                     </td>
                     <td><button 
                             class="btn btn-outline-primary btn-sm"
-                            @click="openModal(false,item)">編輯</button></td>
+                            @click="openModal(false,item)">編輯</button>
+                    </td>
+                    <td><button 
+                            class="btn btn-outline-primary btn-sm"
+                            @click="openDelProductModal(item)">刪除</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
-        <Pagination :pages="pagination" @emitPages="getProducts"/>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li 
+                    class="page-item"
+                    :class="{'disabled':pagination.has_pre === false}">
+                    <a 
+                        class="page-link" 
+                        href="#" 
+                        aria-label="Previous"
+                        @click.prevent="getProducts(pagination.current_page - 1)">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li 
+                    class="page-item"
+                    v-for="page in pagination.total_pages" 
+                    :key="page"
+                    :class="{'active': pagination.current_page === page}" >
+                    <a 
+                    class="page-link" 
+                    href="#"
+                    @click.prevent="getProducts(page)">{{page}}</a>
+                </li>
+                <li 
+                    class="page-item"
+                    :class="{'disabled':pagination. has_next=== false}">
+                    <a 
+                    class="page-link" 
+                    href="#" 
+                    aria-label="Next"
+                    @click.prevent="getProducts(pagination.current_page + 1)">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- <Pagination :pages="pagination" @emitPages="getProducts"/> -->
 
         <!-- Modal -->
         <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,7 +240,7 @@
                     <button 
                     type="button" 
                     class="btn btn-danger"
-                
+                    @click="delProduct"
                     >確認刪除</button> <!--@click="delProduct"-->
                 </div>
                 </div>
@@ -227,8 +271,8 @@ import Pagination from '../component/Pagination'
             Pagination
         },
         methods : {
-            getProducts(){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
+            getProducts(page=1){
+                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
                 const vm = this;
                 this.isLoading = true;
                 this.$http.get(api).then((response)=>{
@@ -267,6 +311,21 @@ import Pagination from '../component/Pagination'
                         vm.getProducts();
                     }
                 })
+            },
+            openDelProductModal(item) {
+                const vm = this;
+                $('#delProductModal').modal('show');
+                vm.tempProduct = Object.assign({}, item);
+            },
+            delProduct() {
+                const vm = this;
+                const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+                this.$http.delete(url).then((response) => {
+                    console.log(response, vm.tempProduct);
+                    $('#delProductModal').modal('hide');
+                    vm.isLoading = false;
+                    this.getProducts();
+                });
             },
             uploadFile(){
                 console.log(this);
