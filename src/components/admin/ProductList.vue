@@ -221,6 +221,7 @@ import $ from 'jquery';
         },
         methods : {
             getProducts(){
+              
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
                 const vm = this;
                 this.isLoading = true;
@@ -272,6 +273,9 @@ import $ from 'jquery';
                     if(response.data.success){ 
                       vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl);     // vm.tempProduct.imageUrl = response.data.imageUrl
                       vm.status.fileUploading = false;
+                    }else{
+                         console.log(response.data.message)
+                        this.$bus.$emit('message:push',response.data.message,'danger')  // alert message
                     }
                 })
             }
