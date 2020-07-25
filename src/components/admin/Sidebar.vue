@@ -6,7 +6,7 @@
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
              <router-link 
-              to="/customer_order"
+              to="/store/productIndex"
               class="nav-link">
              首頁
             </router-link>
