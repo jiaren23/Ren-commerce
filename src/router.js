@@ -5,6 +5,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/admin/Login';
 import Dashboard from '@/components/admin/Dashboard';
 import ProductList from '@/components/admin/ProductList';
+import ProductIndex from '@/components/views/ProductIndex';
 
 
 Vue.use(Router)
@@ -17,9 +18,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      meta: { requiresAuth: true },
+      name: 'ProductIndex',
+      component: ProductIndex,
     },
     {
       path: '/login',
