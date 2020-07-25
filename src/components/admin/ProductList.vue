@@ -20,8 +20,8 @@
                 <tr v-for="item in products" :key="item.id">
                     <td>{{item.category}}</td>
                     <td>{{item.title}}</td>
-                    <td>{{item.origin_price}}</td>
-                    <td>{{item.price}}</td>
+                    <td>{{item.origin_price | currencyFilter}}</td>
+                    <td>{{item.price | currencyFilter}}</td>
                     <td>
                         <span v-if="item.is_enabled" class="text-success">啟用</span>
                         <span v-else>未啟用</span>
@@ -330,7 +330,7 @@ import Pagination from '../component/Pagination'
             uploadFile(){
                 console.log(this);
                 const uploadedFile = this.$refs.files.files[0];
-                let formData = new FormData;
+                let formData = new FormData();
                 formData.append('file-to-upload',uploadedFile)
                 const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
                 const vm = this;
