@@ -1,6 +1,6 @@
 <template> 
      <div>
-        <form>
+        <form @submit.prevent="sigin">
             <h1>Please sign in</h1>
             <div>
                 <label for="inputEmail">帳號</label>

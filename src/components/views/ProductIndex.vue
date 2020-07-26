@@ -9,7 +9,7 @@
                 :key="item.id" >
                 <div class="card border-0 shadow-sm" >
                     <div 
-                        style="height: 150px; background-size: cover; background-position: center"
+                        style="height: 500px; background-size: cover; background-position: center ; background: no-repeat"
                         :style="{backgroundImage:`url(${item.imageUrl})`}">
                     </div>
                     <div class="card-body">
