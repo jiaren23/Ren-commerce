@@ -1,6 +1,7 @@
 <template>
 
   <div>
+    <Navbar/>
         <div class="row mt-4">
              <!-- <loading :active.sync="isLoading" loader="dots"/> -->
             <div 
@@ -41,6 +42,7 @@
 
 <script>  
 import $ from 'jquery';
+import Navbar from "../component/NavbarCust";
 
 export default {
   data() {
@@ -82,5 +84,8 @@ getProduct(){//取得單一產品
      this.getProduct();
      console.log(this.getProduct())
   },
+  components:{
+    Navbar,
+  }
 }
 </script>  

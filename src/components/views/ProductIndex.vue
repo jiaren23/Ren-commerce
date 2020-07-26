@@ -1,5 +1,6 @@
 <template>
    <div>
+     <Navbar/>
         <div class="row mt-4">
              <loading :active.sync="isLoading" loader="dots"/>
              <img src="https://d2xwhsqvg2p5k2.cloudfront.net/wp-content/uploads/2020/03/slide-011.jpg" alt=""/>
@@ -45,6 +46,7 @@
 
 <script>  
 import $ from 'jquery';
+import Navbar from "../component/NavbarCust";
 
 export default {
   data() {
@@ -82,6 +84,9 @@ export default {
     this.getProducts();
   
   },
+  components:{
+    Navbar,
+  }
 }
 </script>  
 
