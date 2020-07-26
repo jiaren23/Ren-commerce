@@ -1,15 +1,15 @@
 <template>
    <div>
-
         <div class="row mt-4">
              <loading :active.sync="isLoading" loader="dots"/>
+             <img src="https://d2xwhsqvg2p5k2.cloudfront.net/wp-content/uploads/2020/03/slide-011.jpg" alt=""/>
             <div 
                 class="col-md-4 mb-4" 
                 v-for="item in products" 
                 :key="item.id" >
                 <div class="card border-0 shadow-sm" >
                     <div 
-                        style="height: 500px; background-size: cover; background-position: center ; background: no-repeat"
+                        style="height: 520px; background-size: cover; background-position: center ; background: no-repeat"
                         :style="{backgroundImage:`url(${item.imageUrl})`}">
                     </div>
                     <div class="card-body">
@@ -30,7 +30,7 @@
                       class="btn btn-outline-secondary btn-sm"
                       ><!--@click="goProductInfo(item.id)"-->
                         <i class="fas fa-spinner fa-spin"></i>
-                        <router-link :to="`/store/${item.id}`">查看更多</router-link>
+                        <router-link :to="`/store/productIndex/${item.id}`">查看更多</router-link>
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
                         <i class="fas fa-spinner fa-spin"></i>
@@ -84,3 +84,12 @@ export default {
   },
 }
 </script>  
+
+
+
+<style> 
+img{
+  width: 100%;
+}
+
+</style> 
