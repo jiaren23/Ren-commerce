@@ -23,11 +23,16 @@
                         <div class="h5">現在只要 {{product.price}} 元</div>
                     </div>
                     </div>
+                    <select name="" class="form-control mt-3" v-model="product.num">
+                      <option :value="num" v-for="num in 10" :key="num">
+                        選購 {{num}} {{product.unit}}
+                      </option>
+                    </select>
                     <div class="card-footer d-flex">
-                    <button type="button" class="btn btn-outline-secondary btn-sm">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        查看更多
-                    </button>
+                 
+                    <div class="text-muted text-nowrap mr-3">
+                      小計 <strong>{{ product.num * product.price }}</strong> 元
+                    </div>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
                         <i class="fas fa-spinner fa-spin"></i>
                         加到購物車
@@ -36,6 +41,8 @@
                 </div>
             </div>
         </div>
+
+      
    </div>
 </template>
 
@@ -52,40 +59,27 @@ export default {
       }
   },
   methods : {
-    // getProduct(){//取得單一產品
-    //   const vm = this;
-    //   const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`;
-    //   // vm.$store.dispatch('updateLoading',true)
-    //   this.$http.get(api).then(function(response) {
-    //     if(response.data.success){ 
-    //       vm.product = response.data.product
-    //       // vm.$store.dispatch('updateLoading',false)
-    //     }else{
-    //       console.log(response.data.message)
-    //     }
-    //   });
-    // },
-getProduct(){//取得單一產品
-      const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.productId}`;
-      // vm.$store.dispatch('updateLoading',true)
-      this.$http.get(api).then(function(response) {
-        if(response.data.success){ 
-          vm.product = response.data.product
-          // vm.$store.dispatch('updateLoading',false)
-        }else{
-          console.log(response.data.message)
-        }
-      });
+  getProduct(){//取得單一產品
+        const vm = this;
+        const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.productId}`;
+        // vm.$store.dispatch('updateLoading',true)
+        this.$http.get(api).then(function(response) {
+          if(response.data.success){ 
+            vm.product = response.data.product
+            // vm.$store.dispatch('updateLoading',false)
+          }else{
+            console.log(response.data.message)
+          }
+        });
+      },
     },
-  },
-  created() {
-     this.productId =  this.$route.params.productId;
-     this.getProduct();
-     console.log(this.getProduct())
-  },
-  components:{
-    Navbar,
-  }
+    created() {
+      this.productId =  this.$route.params.productId;
+      this.getProduct();
+      console.log(this.getProduct())
+    },
+    components:{
+      Navbar,
+    }
 }
 </script>  
