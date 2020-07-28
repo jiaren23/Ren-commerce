@@ -16,14 +16,14 @@
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
             <router-link 
-              to="/admin/products"
+              to="/admin/productList"
               class="nav-link">
              產品列表
             </router-link>
           </li>
            <li class="nav-item">
               <router-link 
-                to="/admin/orders"
+                to="/admin/orderList"
                 class="nav-link">
               訂單列表
               </router-link>

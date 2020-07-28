@@ -5,6 +5,8 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/admin/Login';
 import Dashboard from '@/components/admin/Dashboard';
 import ProductList from '@/components/admin/ProductList';
+import OrderList from '@/components/admin/OrderList';
+import Coupons from '@/components/admin/Coupons';
 import ProductIndex from '@/components/views/ProductIndex';
 import ProductInfo from '@/components/views/ProductInfo';
 import Store from '@/components/views/Store';
@@ -46,9 +48,8 @@ export default new Router({
       name: 'Cart',
       component: Cart,           
     },
-    
-      
-  
+
+
     {
       path: '/admin',
       name: 'Admin',
@@ -59,6 +60,18 @@ export default new Router({
           path:'productList',
           name: 'ProductList',
           component: ProductList,
+          meta: { requiresAuth: true },
+        },
+        {
+          path:'orderList',
+          name: 'OrderList',
+          component: OrderList,
+          meta: { requiresAuth: true },
+        },
+        {
+          path:'coupons',
+          name: 'Coupons',
+          component: Coupons,
           meta: { requiresAuth: true },
         },
       ]
