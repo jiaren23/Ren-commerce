@@ -29,9 +29,9 @@
                 </td>
                 <td class="align-middle">
                     {{ item.product.title }}
-                    <div class="text-success" v-if="item.coupon">
-                    已套用優惠券
-                    </div>
+                    <div 
+                        class="text-success" 
+                        v-if="item.coupon"> 已套用優惠券 </div>
                 </td>
                 <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
                 <td class="align-middle text-right">{{ item.final_total }}</td>
@@ -50,9 +50,9 @@
                 <td class="text-right">{{ cart.total }}</td>
                 </tr>
                 <tr 
-                 v-if="cart.final_total !== cart.total">
-                <td colspan="3" class="text-right text-success">折扣價</td>
-                <td class="text-right text-success">{{ cart.final_total }}</td>
+                    v-if="cart.final_total !== cart.total">
+                    <td colspan="3" class="text-right text-success">折扣價</td>
+                    <td class="text-right text-success">{{ cart.final_total }}</td>
                 </tr>
             </tfoot>
             </table>
@@ -62,12 +62,14 @@
                 type="text" 
                 class="form-control" 
                 placeholder="請輸入優惠碼"
+                v-model="coupon_code"
             >
             <div class="input-group-append">
                 <button 
-                class="btn btn-outline-secondary" 
-                type="button"
-             >
+                    class="btn btn-outline-secondary" 
+                    type="button"
+                    @click="addCouponCode"
+                >
                 套用優惠碼
                 </button>
             </div>
@@ -88,6 +90,7 @@ import $ from 'jquery';
             return{
                 cart:{},
                 isLoading:false,
+                coupon_code:'',
             }
         },
         methods:{
@@ -110,6 +113,21 @@ import $ from 'jquery';
                     vm.isLoading = false;
                     vm.getCart();
                 });
+            },
+            addCouponCode(){
+                const vm = this;
+                const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;   // 多加 參數 id 
+                const coupon = {
+                    code : vm.coupon_code,
+                };
+                  vm.isLoading = true;
+                this.$http.post(url,{data:coupon}).then((response) => {
+                    // console.log(response.data.message);
+                    vm.isLoading = false;
+                    vm.getCart();
+                    console.log('折扣馬',response.data.message);
+                });
+
             },
             // removeAllCart(){
             //     const vm = this;
