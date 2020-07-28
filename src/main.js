@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import './bus'
 import currency from './filters/currency'
+import date from './filters/data'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -15,6 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(Loading);
 Vue.component('Loading',Loading);
 Vue.filter('currencyFilter',currency)
+Vue.filter('dateFilter',date)
 
 axios.defaults.withCredentials = true;
 
