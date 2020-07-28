@@ -8,6 +8,8 @@ import ProductList from '@/components/admin/ProductList';
 import ProductIndex from '@/components/views/ProductIndex';
 import ProductInfo from '@/components/views/ProductInfo';
 import Store from '@/components/views/Store';
+import Cart from '@/components/views/Cart';
+
 
 Vue.use(Router)
 
@@ -38,6 +40,11 @@ export default new Router({
       path: '/store/productIndex/:productId',
       name: 'ProductInfo',
       component: ProductInfo,           
+    },
+    {
+      path: '/store/cart',
+      name: 'Cart',
+      component: Cart,           
     },
     
       

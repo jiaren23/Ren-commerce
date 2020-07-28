@@ -36,7 +36,10 @@
                           v-if="item.id === status.loadingItem"></i>
                         <router-link :to="`/store/productIndex/${item.id}`">查看更多</router-link>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
+                    <button 
+                      type="button" 
+                      class="btn btn-outline-danger btn-sm ml-auto"
+                      @click="addToCart(item.id)">
                         <i 
                           class="fas fa-spinner fa-spin"
                           v-if="item.id === status.loadingItem"></i>
@@ -46,6 +49,74 @@
                 </div>
             </div>
         </div>
+
+<!-- 
+ <div 
+      class="my-5 row justify-content-center" 
+      v-if="cart.total !== 0">   
+      <div class="my-5 row justify-content-center">
+        <table class="table">
+          <thead>
+            <th></th>
+            <th>品名</th>
+            <th>數量</th>
+            <th>單價</th>
+          </thead>
+          <tbody>
+            <tr 
+              v-for="item in cart.carts" 
+              :key="item.id" 
+              v-if="cart.carts">
+              <td class="align-middle">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-danger btn-sm"
+                 >
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </td>
+              <td class="align-middle">
+                {{ item.product.title }}
+                <div class="text-success" v-if="item.coupon">
+                  已套用優惠券
+                </div>
+              </td>
+              <td class="align-middle">{{ item.qty }}/{{ item.product.unit }}</td>
+              <td class="align-middle text-right">{{ item.final_total }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-right">總計</td>
+              <td class="text-right">{{ cart.total }}</td>
+            </tr>
+            <tr 
+              v-if="cart.final_total !== cart.total">
+              <td colspan="3" class="text-right text-success">折扣價</td>
+              <td class="text-right text-success">{{ cart.final_total }}</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="input-group mb-3 input-group-sm">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="請輸入優惠碼"
+            >
+          <div class="input-group-append">
+            <button 
+              class="btn btn-outline-secondary" 
+              type="button"
+              >
+              套用優惠碼
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div> -->
+
    </div>
 </template>
 
@@ -60,7 +131,8 @@ export default {
         product : {}, 
         status:{
           loadingItem:'',
-        }
+        },
+        cart:{},
       }
   },
   methods : {
@@ -84,19 +156,48 @@ export default {
           // vm.product.num = 1 ;
           console.log(response);
           vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
-           vm.$router.push(`/store/${response.data.product.id}`);
+           vm.$router.push(`/store/productIndex/${response.data.product.id}`);
      });
     },
+    addToCart(id,qty=1){
+       const vm = this;
+       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+       let cart = {
+         product_id : id,
+         qty : qty,
+        }
+        
+      this.$http.post(url,{data:cart}).then((response) => {
+          // vm.product = response.data.product;
+          // vm.product.num = 1 ;
+          console.log(response.data);
+          vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
+           vm.getCart();
+    
+    });
+
   },
+    getCart(){
+       const vm = this;
+       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+       this.$http.get(url).then((response) => {
+          vm.cart = response.data.data;
+          console.log(response.data.data.carts);
+       });
+  },
+
+},
   created() {
     this.getProducts();
-  
+    this.getCart();
   },
+
   components:{
     Navbar,
   }
 }
-</script>  
+
+</script> 
 
 
 

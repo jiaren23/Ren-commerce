@@ -9,7 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <router-link class="nav-link" :to="`/store/ProductIndex`"> 逛商品 </router-link> 
+          <router-link class="nav-link" :to="`/store/productIndex`"> 逛商品 </router-link> 
+        </li>
+        <li class="nav-item active">
+          <router-link class="nav-link" :to="`/store/cart`"> 購物車 </router-link> 
         </li>
         <li class="nav-item">
            <a  class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
