@@ -1,7 +1,8 @@
 <template>
 
-  <div>
+  <div class="mr-4 ml-4">
     <Navbar/>
+        <loading :active.sync="isLoading" loader="dots"/>
         <div class="row mt-4">
              <!-- <loading :active.sync="isLoading" loader="dots"/> -->
             <div 
@@ -39,6 +40,7 @@
                       @click="addToCart(product.id,product.num)">
                         <i 
                           class="fas fa-spinner fa-spin"
+                          v-if="loadingItem"
                          ></i>
                         加到購物車
                     </button>
@@ -62,9 +64,10 @@ export default {
         product: [],
         productId:'',
         cart:'',
-        status:{
-          isLoading : '',
-        }
+        isLoading : true,
+        
+        loadingItem: false,
+      
       }
     
   },
@@ -72,10 +75,11 @@ export default {
        getProduct(){//取得單一產品
         const vm = this;
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.productId}`;
-        // vm.status.isLoading = true;
+        vm.isLoading = true;
         // vm.$store.dispatch('updateLoading',true)
         this.$http.get(api).then(function(response) {
-          // vm.status.isLoading = ;
+          vm.isLoading = false;
+        
           if(response.data.success){ 
             vm.product = response.data.product
             // vm.$store.dispatch('updateLoading',false)
@@ -90,9 +94,10 @@ export default {
           product_id : id,
           qty
         }
+        vm.loadingItem = true;
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
            this.$http.post(api,{data:cart}).then(function(response) {
-          // vm.status.isLoading = ;
+          vm.loadingItem = false;
             vm.cart = response.data.data
             // vm.$store.dispatch('updateLoading',false)
            console.log(response.data.message)
@@ -101,7 +106,8 @@ export default {
     },
     created() {
       this.productId =  this.$route.params.productId;
-      this.getProduct();     
+      this.getProduct(); 
+      // console.log(this.status.loadingItem)    
     },
     components:{
       Navbar,

@@ -7,7 +7,8 @@
             <div 
                 class="col-md-4 mb-4" 
                 v-for="item in products" 
-                :key="item.id" >
+                :key="item.id" 
+            >
                 <div class="card border-0 shadow-sm" >
                     <div 
                         style="height: 520px; background-size: cover; background-position: center ; background: no-repeat"
@@ -26,11 +27,7 @@
                     </div>
                     </div>
                     <div class="card-footer d-flex">
-                    <button 
-                      type="button" 
-                      class="btn btn-outline-secondary btn-sm"
-                      @click="goProductInfo(item.id)"
-                      ><!--@click="goProductInfo(item.id)"-->
+                    <button type="button" class="btn btn-outline-secondary btn-sm">
                         <i 
                           class="fas fa-spinner fa-spin"
                           v-if="item.id === status.loadingItem"></i>
@@ -128,11 +125,11 @@ export default {
   data() {
       return {
         products: [],
-        product : {}, 
         status:{
           loadingItem:'',
         },
         cart:{},
+        isLoading: false,
       }
   },
   methods : {
@@ -145,19 +142,6 @@ export default {
         console.log(response);
         vm.isLoading = false;
       });
-    },
-    goProductInfo(id){
-       const vm = this;
-        const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;   // 多加 參數 id 
-       vm.status.loadingItem = id;
-       //vm.status.loadingItem = id;               // 將原本的 vm.isLoading = true;   ** 改為由 id 決定是哪個 查看更多被觸發
-        this.$http.get(url).then((response) => {
-          vm.product = response.data.product;
-          // vm.product.num = 1 ;
-          console.log(response);
-          vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
-           vm.$router.push(`/store/productIndex/${response.data.product.id}`);
-     });
     },
     addToCart(id,qty=1){
        const vm = this;
