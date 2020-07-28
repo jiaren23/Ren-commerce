@@ -15,14 +15,15 @@
             </thead>
             <tbody>
                 <tr 
-                v-for="item in cart.carts" 
-                :key="item.id" 
-                v-if="cart.carts">
+                    v-for="item in cart.carts" 
+                    :key="item.id" 
+                    v-if="cart.carts">
                 <td class="align-middle">
                     <button 
-                    type="button" 
-                    class="btn btn-outline-danger btn-sm"
-                >
+                        type="button" 
+                        class="btn btn-outline-danger btn-sm"
+                        @click="removeOneCart(item.id)"
+                    >
                     <i class="far fa-trash-alt"></i>
                     </button>
                 </td>
@@ -37,6 +38,13 @@
                 </tr>
             </tbody>
             <tfoot>
+                <!-- <button 
+                        type="button" 
+                        class="btn btn-outline-danger btn-sm"
+                        @click="removeAllCart"
+                    >
+                    清除所有
+                    </button> -->
                 <tr>
                 <td colspan="3" class="text-right">總計</td>
                 <td class="text-right">{{ cart.total }}</td>
@@ -79,9 +87,7 @@ import $ from 'jquery';
         data(){
             return{
                 cart:{},
-                status:{
-                    loadingItem:'',
-                },
+                isLoading:false,
             }
         },
         methods:{
@@ -95,6 +101,21 @@ import $ from 'jquery';
                     console.log(response.data.data.carts);
                 });
             },  
+            removeOneCart(id){
+                const vm = this;
+                const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;   // 多加 參數 id 
+                vm.isLoading = true;
+                this.$http.delete(url).then((response) => {
+                    console.log(response.data.message);
+                    vm.isLoading = false;
+                    vm.getCart();
+                });
+            },
+            // removeAllCart(){
+            //     const vm = this;
+            //     vm.cart ="";
+            //     vm.getCart();
+            // }
         },
         created(){
             this.getCart()
