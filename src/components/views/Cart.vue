@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="mr-4 ml-4">
       <Navbar/>
       <loading :active.sync="isLoading" loader="dots"/>
         <div 

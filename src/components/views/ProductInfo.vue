@@ -33,8 +33,13 @@
                     <div class="text-muted text-nowrap mr-3">
                       小計 <strong>{{ product.num * product.price }}</strong> 元
                     </div>
-                    <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
-                        <i class="fas fa-spinner fa-spin"></i>
+                    <button 
+                      type="button" 
+                      class="btn btn-outline-danger btn-sm ml-auto"
+                      @click="addToCart(product.id,product.num)">
+                        <i 
+                          class="fas fa-spinner fa-spin"
+                         ></i>
                         加到購物車
                     </button>
                     </div>
@@ -55,15 +60,22 @@ export default {
   data() {
       return {
         product: [],
-         productId:'',
+        productId:'',
+        cart:'',
+        status:{
+          isLoading : '',
+        }
       }
+    
   },
   methods : {
-  getProduct(){//取得單一產品
+       getProduct(){//取得單一產品
         const vm = this;
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${vm.productId}`;
+        // vm.status.isLoading = true;
         // vm.$store.dispatch('updateLoading',true)
         this.$http.get(api).then(function(response) {
+          // vm.status.isLoading = ;
           if(response.data.success){ 
             vm.product = response.data.product
             // vm.$store.dispatch('updateLoading',false)
@@ -72,11 +84,24 @@ export default {
           }
         });
       },
+      addToCart(id,qty=1){
+        const vm = this;
+        const cart = {
+          product_id : id,
+          qty
+        }
+        const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+           this.$http.post(api,{data:cart}).then(function(response) {
+          // vm.status.isLoading = ;
+            vm.cart = response.data.data
+            // vm.$store.dispatch('updateLoading',false)
+           console.log(response.data.message)
+        });  
+      },
     },
     created() {
       this.productId =  this.$route.params.productId;
-      this.getProduct();
-      console.log(this.getProduct())
+      this.getProduct();     
     },
     components:{
       Navbar,
