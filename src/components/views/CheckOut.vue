@@ -76,7 +76,7 @@
 <script>  
 import Navbar from "../component/NavbarCust";
 import $ from 'jquery';
-import CartModal from "./CartModal"
+
 
     export default {
         data(){
@@ -124,9 +124,13 @@ import CartModal from "./CartModal"
                 });
 
             },
+               closeModal(){
+                 $('#cartModal').modal('hide') 
+            },
         },
         created(){
             this.getCart()
+            this.closeModal()
         },
         components:{
             Navbar
@@ -135,3 +139,7 @@ import CartModal from "./CartModal"
 
 </script>
 
+
+<style scoped>
+/* .modal-backdrop.show  */
+</style>

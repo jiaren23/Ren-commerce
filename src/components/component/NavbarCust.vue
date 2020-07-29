@@ -11,22 +11,23 @@
         <li class="nav-item active">
           <router-link class="nav-link" :to="`/store/productIndex`"> 逛商品 </router-link> 
         </li>
-        <!-- <li class="nav-item active">
-          <router-link class="nav-link" :to="`/store/cart`"> 購物車 </router-link> 
-        </li> -->
-        <li class="nav-item active">
-          <a  @click="openModal(true)"> 購物車 </a> 
+        <li 
+          class="nav-item active" 
+          v-if="$router.history.current['path'] !== '/store/checkOut'">
+          <a class="nav-link" @click="openModal(true)"> 購物車 </a> 
         </li>
-  
-        <li class="nav-item">
+        <li 
+          class="nav-item"
+          v-if="$router.history.current['path'] !== '/store/checkOut'">
            <a  class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
         </li>
         <li class="nav-item">
          <router-link class="nav-link" :to="`/login`">管理員登入</router-link>
         </li>
-         <li class="nav-item">
-           <router-link :to="`/store/checkOut`" >結帳去</router-link>    
-        </li>
+         <!-- <li class="nav-item" 
+          v-if="$router.history.current['path'] !== '/store/checkOut'">
+           <router-link :to="`/store/checkOut`">結帳去</router-link>    
+        </li> -->
                                                                 
 
       </ul>
@@ -80,5 +81,9 @@ export default {
 <style scoped>
  a{   
    color:rgb(116, 108, 108) !important;
+ }
+
+ .modal-backdrop.show{
+   opacity: 0;
  }
 </style>

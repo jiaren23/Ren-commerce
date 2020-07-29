@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div 
-                    class="my-5 row justify-content-center" 
+                    class="my-5 row justify-content-center modal-bgc" 
                     v-if="cart.total !== 0">    <!-- 這裡判斷如果都沒加進購物車 則 此表格隱藏 -->
                     <div class="my-5 row justify-content-center">
                         <table class="table">
@@ -73,8 +73,7 @@
                             </div>
                         </div>
                     </div>
-                       
-                                    <router-link :to="`/store/checkOut`">結帳去</router-link>                           
+                    <button><router-link :to="`/store/checkOut`">結帳去</router-link></button>                           
                 </div>
             </div>
             </div>    
@@ -132,12 +131,6 @@ import $ from 'jquery';
                 });
 
             },
-          
-            // removeAllCart(){
-            //     const vm = this;
-            //     vm.cart ="";
-            //     vm.getCart();
-            // }
         },
         created(){
             this.getCart()
@@ -151,5 +144,6 @@ import $ from 'jquery';
 .table {
    background-color: #eee !important;
 }
+
 </style>
 
