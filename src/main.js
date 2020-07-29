@@ -9,6 +9,8 @@ import VueAxios from 'vue-axios'
 import 'bootstrap'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css';
+import VeeValidate from 'vee-validate';
+import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
 
 
 Vue.use(VueAxios, axios)
@@ -17,6 +19,9 @@ Vue.use(Loading);
 Vue.component('Loading',Loading);
 Vue.filter('currencyFilter',currency)
 Vue.filter('dateFilter',date)
+
+VeeValidate.Validator.localize('zh_TW', zhTWValidate);
+Vue.use(VeeValidate);
 
 axios.defaults.withCredentials = true;
 

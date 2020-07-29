@@ -8,6 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h1>購物車</h1>
                 <div 
                     class="my-5 row justify-content-center modal-bgc" 
                     v-if="cart.total !== 0">    <!-- 這裡判斷如果都沒加進購物車 則 此表格隱藏 -->
@@ -73,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <button><router-link :to="`/store/checkOut`">結帳去</router-link></button>                           
+                    <button><router-link :to="`/store/checkOut`">下一步</router-link></button>                           
                 </div>
             </div>
             </div>    

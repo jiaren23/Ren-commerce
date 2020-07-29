@@ -1,5 +1,6 @@
 <template>
    <div class="mr-4 ml-4">
+    <div class="coupon">點我優惠券<br>(要加浮動)</div>
      <Navbar/>
         <div class="row mt-4">
              <loading :active.sync="isLoading" loader="dots"/>
@@ -185,9 +186,26 @@ export default {
 
 
 
-<style> 
+<style scoped> 
 img{
   width: 100%;
+}
+
+.coupon{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color:pink;
+  color: #000;
+  font-weight: 500;
+  z-index: 900;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer; 
 }
 
 </style> 

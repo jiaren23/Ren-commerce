@@ -12,6 +12,7 @@ import ProductInfo from '@/components/views/ProductInfo';
 import Store from '@/components/views/Store';
 import Cart from '@/components/views/Cart';
 import CheckOut from '@/components/views/CheckOut';
+import ConfirmPayment from '@/components/views/ConfirmPayment';
 
 
 Vue.use(Router)
@@ -54,6 +55,12 @@ export default new Router({
       name: 'CheckOut',
       component: CheckOut,           
     },
+    {
+      path: '/store/:orderId',
+      name: 'ConfirmPayment',
+      component: ConfirmPayment,           
+    },
+
 
 
     {
