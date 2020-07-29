@@ -11,9 +11,13 @@
         <li class="nav-item active">
           <router-link class="nav-link" :to="`/store/productIndex`"> 逛商品 </router-link> 
         </li>
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <router-link class="nav-link" :to="`/store/cart`"> 購物車 </router-link> 
+        </li> -->
+        <li class="nav-item active">
+          <a  @click="openModal(true)"> 購物車 </a> 
         </li>
+  
         <li class="nav-item">
            <a  class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
         </li>
@@ -23,6 +27,7 @@
       </ul>
     </div>
   </nav>
+  <CartModal></CartModal>
 
 
     
@@ -30,6 +35,8 @@
 </template>
 
 <script>
+import CartModal from "../views/CartModal"
+import $ from 'jquery';
 export default {
   name: 'Navbar',
   methods:{
@@ -43,7 +50,24 @@ export default {
             vm.$router.push('/login')  // 確定登出就將頁面 導回 signin
         }
         });
-    }
+    },
+
+     openModal(isNew,item){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+      if(isNew){                                    // 如果是新增的時候 tempProduct就是一個空物件
+        this.tempProduct = {};
+        this.isNew = true;
+      }else{                                        // 否則就是編輯
+        this.tempProduct = Object.assign({},item);  // 避免編輯的tempProduct 與 item 有參考的特性 ( 物件傳址特性 ) 
+        this.isNew = false;                         // 所以使用 assign 可以先將 item 傳到一個空物件 在賦予 到 tempProduct
+      }
+      $('#cartModal').modal('show')              // bs 提供給予控制 modal 的 methods
+    },
+
+
+
+  },
+  components:{
+    CartModal
   }
 }
 </script>
