@@ -24,6 +24,11 @@
         <li class="nav-item">
          <router-link class="nav-link" :to="`/login`">管理員登入</router-link>
         </li>
+         <li class="nav-item">
+           <router-link :to="`/store/checkOut`" >結帳去</router-link>    
+        </li>
+                                                                
+
       </ul>
     </div>
   </nav>

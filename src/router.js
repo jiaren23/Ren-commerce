@@ -11,6 +11,7 @@ import ProductIndex from '@/components/views/ProductIndex';
 import ProductInfo from '@/components/views/ProductInfo';
 import Store from '@/components/views/Store';
 import Cart from '@/components/views/Cart';
+import CheckOut from '@/components/views/CheckOut';
 
 
 Vue.use(Router)
@@ -47,6 +48,11 @@ export default new Router({
       path: '/store/cart',
       name: 'Cart',
       component: Cart,           
+    },
+    {
+      path: '/store/checkOut',
+      name: 'CheckOut',
+      component: CheckOut,           
     },
 
 

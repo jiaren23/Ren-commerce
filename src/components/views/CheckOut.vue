@@ -1,13 +1,8 @@
 <template>
-    <div class="mr-4 ml-4">
-        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true"> 
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
+   <div class="mr-4 ml-4">
+                <Navbar/>
                 <loading :active.sync="isLoading" loader="dots"/>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+   
                 <div 
                     class="my-5 row justify-content-center" 
                     v-if="cart.total !== 0">    <!-- 這裡判斷如果都沒加進購物車 則 此表格隱藏 -->
@@ -73,18 +68,15 @@
                             </div>
                         </div>
                     </div>
-                       
-                                    <router-link :to="`/store/checkOut`">結帳去</router-link>                           
                 </div>
-            </div>
-            </div>    
-        </div>
+                  
     </div>
 </template>
 
 <script>  
-// import Navbar from "../component/NavbarCust";
+import Navbar from "../component/NavbarCust";
 import $ from 'jquery';
+import CartModal from "./CartModal"
 
     export default {
         data(){
@@ -132,24 +124,14 @@ import $ from 'jquery';
                 });
 
             },
-          
-            // removeAllCart(){
-            //     const vm = this;
-            //     vm.cart ="";
-            //     vm.getCart();
-            // }
         },
         created(){
             this.getCart()
         },
+        components:{
+            Navbar
+        }
     }
 
 </script>
-
-
-<style>
-.table {
-   background-color: #eee !important;
-}
-</style>
 
