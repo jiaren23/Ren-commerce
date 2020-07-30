@@ -2,10 +2,7 @@
   <div>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     <a href="#">BITPLAY</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> 
+    <router-link class="nav-link logo" :to="`/store`">BITPlAY</router-link>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
@@ -19,7 +16,7 @@
         <li 
           class="nav-item"
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-           <a  class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
+           <a class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
         </li>
         <li class="nav-item">
          <router-link class="nav-link" :to="`/login`">管理員登入</router-link>
@@ -93,7 +90,15 @@ export default {
    color:rgb(116, 108, 108) !important;
  }
 
- .modal-backdrop.show{
-   opacity: 0;
+ .nav-link{
+   cursor: pointer;
  }
+
+ .logo{
+   font-weight: 800;
+ }
+
+ /* .modal-backdrop.show{
+   opacity: 0;
+ } */
 </style>
