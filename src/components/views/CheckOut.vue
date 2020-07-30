@@ -73,7 +73,7 @@
 
 
    <div class="my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="createOrder"> <!-- 清除預設的 submit 行為 -->
+      <form class="col-md-6" > <!-- 清除預設的 submit 行為 -->
         <div class="form-group">
           <label for="useremail">Email</label>
           <input type="email" class="form-control" name="email" id="useremail"
@@ -114,8 +114,8 @@
             v-model="form.message"></textarea>
         </div>
         <div class="text-right">
-          <button class="btn btn-info">再逛逛去</button>
-          <button class="btn btn-danger">送出訂單</button>
+          <button class="btn btn-info" @click="goProductIndex">再逛逛去</button>
+          <button class="btn btn-danger" @submit.prevent="createOrder">送出訂單</button>
         </div>
       </form>
      </div>
@@ -201,6 +201,9 @@ import $ from 'jquery';
                     console.log('欄位不完整');
                     }
                 });
+            },
+            goProductIndex(){
+                  this.$router.push(`/store/productIndex`);
             },
             closeModal(){  // 關掉 頁面跳轉過來的 modal 灰畫面
                  $('#cartModal').modal('hide') 

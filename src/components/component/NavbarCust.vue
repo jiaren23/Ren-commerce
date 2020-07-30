@@ -14,7 +14,7 @@
         <li 
           class="nav-item active" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-          <a class="nav-link" @click="openModal(true)"> 購物車 </a> 
+          <a class="nav-link" @click="openModal"> 購物車 </a> 
         </li>
         <li 
           class="nav-item"
@@ -44,6 +44,9 @@
 import CartModal from "../views/CartModal"
 import $ from 'jquery';
 export default {
+  data(){
+    return{}
+  },
   name: 'Navbar',
   methods:{
     signout(){
@@ -57,20 +60,27 @@ export default {
         }
         });
     },
-
-     openModal(isNew,item){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
-      if(isNew){                                    // 如果是新增的時候 tempProduct就是一個空物件
-        this.tempProduct = {};
-        this.isNew = true;
-      }else{                                        // 否則就是編輯
-        this.tempProduct = Object.assign({},item);  // 避免編輯的tempProduct 與 item 有參考的特性 ( 物件傳址特性 ) 
-        this.isNew = false;                         // 所以使用 assign 可以先將 item 傳到一個空物件 在賦予 到 tempProduct
-      }
+     openModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+      this.getCart();
       $('#cartModal').modal('show')              // bs 提供給予控制 modal 的 methods
     },
+     getCart(){
+      const vm = this;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+        vm.isLoading = true;
+      this.$http.get(url).then((response) => {
+          vm.isLoading = false;
+          vm.cart = response.data.data;
+          console.log(response.data.data.carts);
+      });
+      },  
 
 
 
+  },
+ 
+  created(){
+    this.getCart();
   },
   components:{
     CartModal

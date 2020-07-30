@@ -150,25 +150,27 @@ export default {
        let cart = {
          product_id : id,
          qty : qty,
-        }
-        
+        }   
       this.$http.post(url,{data:cart}).then((response) => {
           // vm.product = response.data.product;
           // vm.product.num = 1 ;
           console.log(response.data);
           vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
-           vm.getCart();
-    
+          vm.getCart();       
+          vm.$router.go(0); // 重新整理頁面 - 解決加入購物車後 modalCart 不能馬上讀到 getCart 的問題   :  原生js寫法 :   location.reload();
     });
-
+   
   },
     getCart(){
        const vm = this;
        const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+       vm.isLoading = true;
        this.$http.get(url).then((response) => {
           vm.cart = response.data.data;
+          vm.isLoading = false;
           console.log(response.data.data.carts);
        });
+     
   },
 
 },

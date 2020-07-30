@@ -136,6 +136,7 @@ import $ from 'jquery';
         created(){
             this.getCart()
         },
+              
     }
 
 </script>

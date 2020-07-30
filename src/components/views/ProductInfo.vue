@@ -101,6 +101,8 @@ export default {
             vm.cart = response.data.data
             // vm.$store.dispatch('updateLoading',false)
            console.log(response.data.message)
+           vm.$router.go(0); // 重新整理頁面 - 解決加入購物車後 modalCart 不能馬上讀到 getCart 的問題   :  原生js寫法 :   location.reload();
+
         });  
       },
     },
