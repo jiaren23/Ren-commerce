@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/Ren-commerce/',
+    assetsPublicPath: '/Ren-commerce/dist/',
     proxyTable: {},
 
     // Various Dev Server settings
