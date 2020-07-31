@@ -1,26 +1,30 @@
 <template>
-  <div class="mr-4 ml-4">
+  <div class="body">
     <Navbar></Navbar>         <!--  <Alert/>Alert -->
-    <loading :active.sync="isLoading" loader="dots"/>
-    <h2><span class="h2-title">BITPLAY </span>旅人包，隨時準備好下一次的旅行  </h2>
+    <!-- <loading :active.sync="isLoading" loader="dots"/> -->
+    <h2 class="keyboard-title"><span class="h2-title">BITPLAY </span>旅行包 , 隨時準備好下一次的旅行  </h2>
     <img class="store_banner" v-bind:src="imgUrl" alt="banner"/>
     <!-- <img class="store_banner" src="../../assets/image/store_banner.jpg" alt=""/> -->
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="row">
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
      
         </main>
       </div>
-    </div>
+    </div> -->
+    <Footer/>
   </div>
 </template>
 
 
 <script>  
   import Navbar from "../component/NavbarCust";
+  import Footer from "../component/FooterCust";
   import ProductIndex from "./ProductIndex";
   import ProductInfo from "./ProductInfo";
   import img from "../../assets/image/store_banner.jpg";
+ 
+
 
   export default {
     data(){
@@ -44,6 +48,7 @@
     },
     components:{
       Navbar,
+      Footer,
       ProductIndex,
       ProductInfo,
     }
@@ -51,12 +56,13 @@
 </script>  
 
 <style scoped lang="scss">
-  .store_banner{
-    width: 80%;
-    margin: auto 10% auto 10%;
-  }
-
-  h2 {
+  .body {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  background-position: center center;
+  background-size: cover;
+  .keyboard-title {
     color: #b6a36e;
     margin: 20px auto;
     width: 20em;
@@ -81,5 +87,22 @@
       color:#486339
     }
   }
+  .store_banner{
+    width: 80%;
+    margin: auto 10% auto 10%;
+  }
+}
+
+
+
+  @media screen and (max-width: 640px) {
+  
+    .keyboard-title{
+      font-size:1rem;
+      
+    }
+  
+
+}
 
 </style>

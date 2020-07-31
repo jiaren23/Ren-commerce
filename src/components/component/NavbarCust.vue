@@ -3,23 +3,26 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="nav-link logo" :to="`/store`">BITPlAY</router-link>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <router-link class="nav-link" :to="`/store/productIndex`"> 逛商品 </router-link> 
+          <router-link class="nav-link text-center" :to="`/store/productIndex`"> 逛商品 </router-link> 
         </li>
         <li 
           class="nav-item active" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-          <a class="nav-link" @click="openModal"> 購物車 </a> 
+          <a class="nav-link text-center " @click="openModal"> 購物車 </a> 
         </li>
         <li 
           class="nav-item"
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-           <a class="nav-link" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
+           <a class="nav-link text-center" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
         </li>
         <li class="nav-item">
-         <router-link class="nav-link" :to="`/login`">管理員登入</router-link>
+         <router-link class="nav-link text-center" :to="`/login`">管理員登入</router-link>
         </li>
          <!-- <li class="nav-item" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
