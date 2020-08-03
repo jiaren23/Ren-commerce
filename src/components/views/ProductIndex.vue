@@ -14,7 +14,7 @@
                             :style="{backgroundImage:`url(${item.imageUrl})`}">
                         </div>
                         <div class="box-content">
-                            <span class="box-category">{{item.category}}</span>
+                            <span class="box-category badge badge-secondary">{{item.category}}</span>
                             <h5 class="box-title">
                                 <a href="#" class="text-dark">{{item.title}}</a>
                             </h5>
@@ -28,7 +28,7 @@
                                 <i 
                                 class="fas fa-spinner fa-spin"
                                 v-if="item.id === status.loadingItem"></i>
-                                <router-link :to="`/store/productIndex/${item.id}`">查看更多</router-link>
+                                <router-link class="ro-btn" :to="`/store/productIndex/${item.id}`">查看更多</router-link>
                             </button>
                             <button 
                                 type="button" 
@@ -53,6 +53,7 @@
     text-decoration: none;
 }
 .body{
+  margin: auto;
   max-width: 1920px;
   width: 100%;
   position: relative;
@@ -76,7 +77,7 @@
     cursor: pointer; 
   }
   .content{
-    width: 960px;
+    max-width: 960px;
     border:solid 1px;
     margin: auto;
     display: flex;
@@ -95,8 +96,8 @@
         }
         .box-content{
             border:solid 1px;
-            padding: 30px;
-            height: 150px;
+            // padding: 30px;
+            height: 130px;
             position: relative;
             .box-category{
                 border:solid 1px;
@@ -106,6 +107,7 @@
             }
             .box-price{
                 position: absolute;
+                margin-top: 10px;
                 right: 0;
             }
         }
@@ -121,6 +123,12 @@
                 position: absolute;
                 right: 0;
             }
+            a{
+                color:none !important;
+            }
+            .ro-btn,button{
+                color:saddlebrown;
+            }
         }
     }
     .box-shadow {
@@ -135,6 +143,14 @@
 
   }
 } 
+
+@media screen and (max-width: 960px){
+    .box{
+        margin:auto !important;
+        // background-color: #eee;
+       
+    }
+}
 
 
 </style> 
