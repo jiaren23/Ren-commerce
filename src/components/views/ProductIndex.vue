@@ -50,6 +50,7 @@
 <style scoped lang="scss">
 *{
     border:none !important;
+    text-decoration: none;
 }
 .body{
   max-width: 1920px;
