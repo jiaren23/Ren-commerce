@@ -51,6 +51,51 @@
 
       
    </div>
+
+
+
+
+           <!-- <div class="content">
+                <div 
+                    class="box box-shadow" 
+                    v-for="item in products" 
+                    :key="item.id">
+                        <div 
+                            class="box-img"
+                            :style="{backgroundImage:`url(${item.imageUrl})`}">
+                        </div>
+                        <div class="box-content">
+                            <span class="box-category">{{item.category}}</span>
+                            <h5 class="card-title">
+                                <a href="#" class="text-dark">{{item.title}}</a>
+                            </h5>
+                            <p class="card-text">{{item.content}}</p>
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <del class="h6">原價 {{item.origin_price}} 元</del>
+                                <div class="h5">現在只要 {{item.price}} 元</div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="button" class="box-btn">
+                                <i 
+                                class="fas fa-spinner fa-spin"
+                                v-if="item.id === status.loadingItem"></i>
+                                <router-link :to="`/store/productIndex/${item.id}`">查看更多</router-link>
+                            </button>
+                            <button 
+                                type="button" 
+                                class="box-btn"
+                                @click="addToCart(item.id)">
+                                    <i 
+                                    class="fas fa-spinner fa-spin"
+                                    v-if="item.id === status.loadingItem"></i>
+                                    加到購物車
+                            </button>
+                        </div>
+             
+                </div>
+        
+        </div> -->
 </template>
 
 
