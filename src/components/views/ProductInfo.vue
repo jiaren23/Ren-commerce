@@ -1,10 +1,10 @@
 <template>
 
-  <div class="mr-4 ml-4">
+  <div class="body">
     <Navbar/>
         <loading :active.sync="isLoading" loader="dots"/>
-        <div class="row mt-4">
-             <!-- <loading :active.sync="isLoading" loader="dots"/> -->
+        <!-- <div class="row mt-4">
+            
             <div 
                 class="col-md-4 mb-4" >
                 <div class="card border-0 shadow-sm" >
@@ -19,7 +19,7 @@
                     </h5>
                     <p class="card-text">{{product.content}}</p>
                     <div class="d-flex justify-content-between align-items-baseline">
-                        <!-- <div class="h5">2,800 元</div> -->
+                    
                         <del class="h6">原價 {{product.origin_price}} 元</del>
                         <div class="h5">現在只要 {{product.price}} 元</div>
                     </div>
@@ -47,55 +47,61 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-      
-   </div>
+<!-- sss -->
 
-
-
-
-           <!-- <div class="content">
+             <div class="content">
                 <div 
-                    class="box box-shadow" 
-                    v-for="item in products" 
-                    :key="item.id">
+                    class="box box-shadow" >
                         <div 
                             class="box-img"
-                            :style="{backgroundImage:`url(${item.imageUrl})`}">
+                            :style="{backgroundImage:`url(${product.imageUrl})`}">
                         </div>
                         <div class="box-content">
-                            <span class="box-category">{{item.category}}</span>
-                            <h5 class="card-title">
-                                <a href="#" class="text-dark">{{item.title}}</a>
+                            <span class="box-category badge badge-secondary">{{product.category}}</span>
+                            <h5 class="box-title">
+                                <a href="#" class="text-dark">{{product.title}}</a>
                             </h5>
-                            <p class="card-text">{{item.content}}</p>
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <del class="h6">原價 {{item.origin_price}} 元</del>
-                                <div class="h5">現在只要 {{item.price}} 元</div>
+                            <p class="card-text">{{product.content}}</p>
+                            <div class="box-price">
+                                <del>原價 {{product.origin_price}} 元</del>
+                                <div>特價 {{product.price}} 元</div>
                             </div>
+                            <div>
+                              <select v-model="product.num">
+                                <option :value="num" v-for="num in 10" :key="num">
+                                  選購 {{num}} {{product.unit}}
+                                </option>
+                              </select>
+
+                            </div>
+                              
+                         
                         </div>
+                       
                         <div class="box-footer">
-                            <button type="button" class="box-btn">
-                                <i 
-                                class="fas fa-spinner fa-spin"
-                                v-if="item.id === status.loadingItem"></i>
-                                <router-link :to="`/store/productIndex/${item.id}`">查看更多</router-link>
-                            </button>
+                            <div>
+                              小計 <strong>{{ product.num * product.price }}</strong> 元
+                            </div>
                             <button 
                                 type="button" 
-                                class="box-btn"
-                                @click="addToCart(item.id)">
+                                class="box-btn box-btn-addToCart"
+                                @click="addToCart(product.id,product.num)">
                                     <i 
                                     class="fas fa-spinner fa-spin"
-                                    v-if="item.id === status.loadingItem"></i>
+                                    v-if="loadingItem"></i>
                                     加到購物車
                             </button>
                         </div>
              
                 </div>
         
-        </div> -->
+        </div>
+<!-- sss -->
+      
+   </div>
+          
 </template>
 
 
@@ -161,3 +167,111 @@ export default {
     }
 }
 </script>  
+ 
+ <style scoped lang="scss">
+*{
+    // border:none !important;
+    text-decoration: none;
+}
+.body{
+  margin: auto;
+  max-width: 1920px;
+  width: 100%;
+  position: relative;
+  img{
+    width: 100%;
+  }
+  .coupon{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color:rgb(187, 187, 187);
+    color: #000;
+    font-weight: 500;
+    z-index: 900;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer; 
+  }
+  .content{
+    max-width: 960px;
+    border:solid 1px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    .box{
+        width: 300px;
+        margin: 8px;
+        padding: 8px;
+        border:solid 2px;
+        .box-img{
+            width: 100%;
+            height: 300px;
+            border:solid 1px;
+            background-position: center;
+            background-size: cover;
+        }
+        .box-content{
+            border:solid 1px;
+            // padding: 30px;
+            // height: 130px;
+            position: relative;
+            .box-category{
+                border:solid 1px;
+            }
+            .box-title{
+                font-size: 16px;
+            }
+            // .box-price{
+            //     position: absolute;
+            //     margin-top: 10px;
+            //     right: 0;
+            // }
+        }
+        .box-footer{
+            border: solid 1px rgb(201, 140, 140);
+            position: relative;
+            .box-btn{
+                text-decoration: none;
+                border-radius: 10px;
+                background-color: #fff;
+            }
+            .box-btn-addToCart{
+                // position: absolute;
+                // right: 0;
+            }
+            a{
+                color:none !important;
+            }
+            .ro-btn,button{
+                color:saddlebrown;
+            }
+        }
+    }
+    .box-shadow {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 300px;
+    }
+
+    .box-shadow:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+  }
+} 
+
+@media screen and (max-width: 960px){
+    .box{
+        margin:auto !important;
+        // background-color: #eee;
+       
+    }
+}
+
+
+</style> 
