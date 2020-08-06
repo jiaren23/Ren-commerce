@@ -3,61 +3,17 @@
   <div class="body">
     <Navbar/>
         <loading :active.sync="isLoading" loader="dots"/>
-        <!-- <div class="row mt-4">
-            
-            <div 
-                class="col-md-4 mb-4" >
-                <div class="card border-0 shadow-sm" >
-                    <div 
-                        style="height: 150px; background-size: cover; background-position: center"
-                        :style="{backgroundImage:`url(${product.imageUrl})`}">
-                    </div>
-                    <div class="card-body">
-                    <span class="badge badge-secondary float-right ml-2">{{product.category}}</span>
-                    <h5 class="card-title">
-                        <a href="#" class="text-dark">{{product.title}}</a>
-                    </h5>
-                    <p class="card-text">{{product.content}}</p>
-                    <div class="d-flex justify-content-between align-items-baseline">
-                    
-                        <del class="h6">原價 {{product.origin_price}} 元</del>
-                        <div class="h5">現在只要 {{product.price}} 元</div>
-                    </div>
-                    </div>
-                    <select name="" class="form-control mt-3" v-model="product.num">
-                      <option :value="num" v-for="num in 10" :key="num">
-                        選購 {{num}} {{product.unit}}
-                      </option>
-                    </select>
-                    <div class="card-footer d-flex">
-                 
-                    <div class="text-muted text-nowrap mr-3">
-                      小計 <strong>{{ product.num * product.price }}</strong> 元
-                    </div>
-                    <button 
-                      type="button" 
-                      class="btn btn-outline-danger btn-sm ml-auto"
-                      @click="addToCart(product.id,product.num)">
-                        <i 
-                          class="fas fa-spinner fa-spin"
-                          v-if="loadingItem"
-                         ></i>
-                        加到購物車
-                    </button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-<!-- sss -->
-
-             <div class="content">
-                <div 
-                    class="box box-shadow" >
-                        <div 
+  
+        
+                <div class="box" >
+                        <div class="box-picture">
+                           <div 
                             class="box-img"
                             :style="{backgroundImage:`url(${product.imageUrl})`}">
+                           </div>
                         </div>
+                        
+                       
                         <div class="box-content">
                             <span class="box-category badge badge-secondary">{{product.category}}</span>
                             <h5 class="box-title">
@@ -76,12 +32,8 @@
                               </select>
 
                             </div>
-                              
-                         
-                        </div>
-                       
-                        <div class="box-footer">
-                            <div>
+
+                             <div>
                               小計 <strong>{{ product.num * product.price }}</strong> 元
                             </div>
                             <button 
@@ -93,12 +45,15 @@
                                     v-if="loadingItem"></i>
                                     加到購物車
                             </button>
+                              
+              
                         </div>
-             
+                       
+                     
                 </div>
         
-        </div>
-<!-- sss -->
+       
+
       
    </div>
           
@@ -172,7 +127,10 @@ export default {
 *{
     // border:none !important;
     text-decoration: none;
+    box-sizing: border-box;
 }
+
+@media screen and (min-width: 720px){
 .body{
   margin: auto;
   max-width: 1920px;
@@ -197,25 +155,28 @@ export default {
     display: flex;
     cursor: pointer; 
   }
-  .content{
-    max-width: 960px;
-    border:solid 1px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
+
+    
     .box{
-        width: 300px;
-        margin: 8px;
+        max-width: 960px;
+        max-height: 720px ;
+        margin: auto;
         padding: 8px;
-        border:solid 2px;
-        .box-img{
-            width: 100%;
-            height: 300px;
+        border:solid 2px pink;
+        display: flex;
+        flex-wrap: wrap;
+        .box-picture{
+          width: 50%;
+          
+          .box-img{
+            height: 360px;
             border:solid 1px;
             background-position: center;
             background-size: cover;
+          }
         }
         .box-content{
+           width: 50%;
             border:solid 1px;
             // padding: 30px;
             // height: 130px;
@@ -231,10 +192,7 @@ export default {
             //     margin-top: 10px;
             //     right: 0;
             // }
-        }
-        .box-footer{
-            border: solid 1px rgb(201, 140, 140);
-            position: relative;
+
             .box-btn{
                 text-decoration: none;
                 border-radius: 10px;
@@ -251,27 +209,45 @@ export default {
                 color:saddlebrown;
             }
         }
-    }
-    .box-shadow {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        width: 300px;
+     
+            
+        
     }
 
-    .box-shadow:hover {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
+    
+    // .box-shadow {
+    //     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    //     transition: 0.3s;
+    //     width: 960;
+    // }
 
-  }
+    // .box-shadow:hover {
+    //     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    // }
+
+
 } 
 
-@media screen and (max-width: 960px){
+
+}
+
     .box{
-        margin:auto !important;
-        // background-color: #eee;
+     
+       .box-picture{
+         width: 100% ;
+         .box-img{
+            height: 360px;
+            border:solid 1px;
+            background-position: center;
+            background-size: cover;
+          }
+       }
+       .box-content{
+         width: 100% ;
+       }
        
     }
-}
+
 
 
 </style> 
