@@ -56,6 +56,7 @@
 </script>  
 
 <style scoped lang="scss">
+@import "../../assets/global.scss";
   .body {
   max-width: 1920px;
   width: 100%;
@@ -63,7 +64,7 @@
   background-position: center center;
   background-size: cover;
   .keyboard-title {
-    color: #b6a36e;
+    color: $text-color-sand;
     margin: 20px auto;
     width: 20em;
     border-right: 0.05em solid;
@@ -84,7 +85,7 @@
       }
     }
     .h2-title{
-      color:#486339
+      color:$text-color-green;
     }
   }
   .store_banner{

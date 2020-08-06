@@ -5,14 +5,14 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <loading :active.sync="isLoading" loader="dots"/>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close text-right mr-2 mt-1" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-                <h1>購物車</h1>
+                </button> 
+                <h2 class="cart-title text-center ">購物車</h2>
                 <div 
-                    class="my-5 row justify-content-center modal-bgc" 
+                    class="my-2 row justify-content-center modal-bgc" 
                     v-if="cart.total !== 0">    <!-- 這裡判斷如果都沒加進購物車 則 此表格隱藏 -->
-                    <div class="my-5 row justify-content-center">
+                    <div class="my-2 row justify-content-center">
                         <table class="table">
                         <thead>
                             <th></th>
@@ -74,8 +74,13 @@
                             </div>
                         </div>
                     </div>
-                    <button><router-link :to="`/store/checkOut`">下一步</router-link></button>                           
+                    <button class="btn btn-outline-secondary mb-2" ><router-link :to="`/store/checkOut`">下一步</router-link></button>                           
                 </div>
+                 <div 
+                    class="my-3 row justify-content-center modal-bgc" 
+                    v-if="cart.total == 0">
+                    <h3 class="cart-text">您尚未選擇商品</h3> 
+                 </div>
             </div>
             </div>    
         </div>
@@ -142,10 +147,24 @@ import $ from 'jquery';
 </script>
 
 
-<style>
-.table {
-   background-color: #eee !important;
+<style scoped lang="scss">
+@import "../../assets/global.scss";
+.cart-title{
+    color:$text-color-green;
 }
-
+.cart-text{
+    color:$text-color-sand;
+}
+        
+    .table {
+         background-color: #eee !important;
+    }
+    .row{
+        margin-left:0;
+        margin-right: 0;
+    }
+    .input-group{
+        width: inherit;
+    }
 </style>
 
