@@ -3,6 +3,7 @@ import App from './App'
 import './bus'
 import currency from './filters/currency'
 import date from './filters/data'
+import wrap from './filters/wrap'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -19,6 +20,7 @@ Vue.use(Loading);
 Vue.component('Loading',Loading);
 Vue.filter('currencyFilter',currency)
 Vue.filter('dateFilter',date)
+Vue.filter('wrapStr',wrap)
 
 VeeValidate.Validator.localize('zh_TW', zhTWValidate);
 Vue.use(VeeValidate);

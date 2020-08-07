@@ -80,11 +80,12 @@
     max-width: 960px;
     border:solid 1px;
     margin: auto;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     .box{
         width: 300px;
-        margin: 8px;
+        margin: 8px 8px 20px 8px; 
         padding: 8px;
         border:solid 2px;
         .box-img{
@@ -147,7 +148,7 @@
 @media screen and (max-width: 960px){
     .box{
         margin:auto !important;
-        // background-color: #eee;
+        margin-bottom: 30px !important;
        
     }
 }

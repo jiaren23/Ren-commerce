@@ -20,6 +20,7 @@
                                 <a href="#" class="text-dark">{{product.title}}</a>
                             </h5>
                             <p class="card-text">{{product.content}}</p>
+                            <p class="card-text">{{product.desciption}}</p>
                             <div class="box-price">
                                 <del>原價 {{product.origin_price}} 元</del>
                                 <div>特價 {{product.price}} 元</div>
@@ -84,6 +85,7 @@ export default {
         vm.isLoading = true;
         // vm.$store.dispatch('updateLoading',true)
         this.$http.get(api).then(function(response) {
+          console.log(response.data)
           vm.isLoading = false;
         
           if(response.data.success){ 
@@ -103,7 +105,7 @@ export default {
         vm.loadingItem = true;
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
            this.$http.post(api,{data:cart}).then(function(response) {
-          vm.loadingItem = false;
+            vm.loadingItem = false;
             vm.cart = response.data.data
             // vm.$store.dispatch('updateLoading',false)
            console.log(response.data.message)

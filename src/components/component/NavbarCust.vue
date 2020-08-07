@@ -22,7 +22,7 @@
            <a class="nav-link text-center" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
         </li>
         <li class="nav-item">
-         <router-link class="nav-link text-center" :to="`/login`">管理員登入</router-link>
+         <router-link class="nav-link text-center" :to="`/admin/productList`">管理員登入</router-link>
         </li>
          <!-- <li class="nav-item" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
