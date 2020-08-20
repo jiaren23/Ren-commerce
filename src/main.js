@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import './bus'
 import currency from './filters/currency'
-import date from './filters/data'
+import date from './filters/date'
 import wrap from './filters/wrap'
 import router from './router'
 import axios from 'axios'
@@ -12,6 +12,7 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VeeValidate from 'vee-validate';
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
+import VueClipboard from 'vue-clipboard2';
 
 
 Vue.use(VueAxios, axios)
@@ -21,6 +22,8 @@ Vue.component('Loading',Loading);
 Vue.filter('currencyFilter',currency)
 Vue.filter('dateFilter',date)
 Vue.filter('wrapStr',wrap)
+VueClipboard.config.autoSetContainer = true;
+Vue.use(VueClipboard)
 
 VeeValidate.Validator.localize('zh_TW', zhTWValidate);
 Vue.use(VeeValidate);

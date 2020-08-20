@@ -14,15 +14,15 @@
         <li 
           class="nav-item active" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-          <a class="nav-link text-center " @click="openModal"> 購物車 </a> 
+          <a class="nav-link text-center " @click="openCartModal"> 購物車 </a> 
         </li>
-        <li 
-          class="nav-item"
+        <!-- <li 
+           class="nav-item active" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
-           <a class="nav-link text-center" href="https://bitplayinc.com/review-2/?lang=zh-hant">用戶評測 </a> 
-        </li>
+          <a class="nav-link text-center " @click="openModal"> 優惠券 </a>  
+        </li> -->
         <li class="nav-item">
-         <router-link class="nav-link text-center" :to="`/admin/productList`">管理員登入</router-link>
+         <router-link class="nav-link text-center" :to="`/admin/productList`">管理員登入</router-link> 
         </li>
          <!-- <li class="nav-item" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
@@ -42,6 +42,7 @@
 
 <script>
 import CartModal from "../views/CartModal"
+
 import $ from 'jquery';
 export default {
   data(){
@@ -60,7 +61,7 @@ export default {
         }
         });
     },
-     openModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+     openCartModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
       this.getCart();
       $('#cartModal').modal('show')              // bs 提供給予控制 modal 的 methods
     },
@@ -83,7 +84,7 @@ export default {
     this.getCart();
   },
   components:{
-    CartModal
+    CartModal,
   }
 }
 </script>

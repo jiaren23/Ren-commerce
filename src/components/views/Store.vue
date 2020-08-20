@@ -37,7 +37,7 @@
       loading(){
         const vm = this;
         window.onload = function(){
-          console.log("頁面長玩了")
+          console.log("頁面長完了")
            vm.isLoading = false;
         }    
       },

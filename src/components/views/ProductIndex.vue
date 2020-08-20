@@ -1,7 +1,8 @@
 <template>
    <div class="body">
-    <div class="coupon">點我優惠券<br>(要加浮動)</div>
+    <div class="coupon" @click="openCouponsModal">點我優惠券<br>(要加浮動)</div>
      <Navbar/>
+     <CouponsModal/>
      <loading :active.sync="isLoading" loader="dots"/>
      <img src="https://d2xwhsqvg2p5k2.cloudfront.net/wp-content/uploads/2020/03/slide-011.jpg" alt=""/>
         <div class="content">
@@ -160,6 +161,7 @@
 <script>  
 import $ from 'jquery';
 import Navbar from "../component/NavbarCust";
+import CouponsModal from "./CouponsModal"
 
 export default {
   data() {
@@ -209,17 +211,34 @@ export default {
           vm.isLoading = false;
           console.log(response.data.data.carts);
        });
-     
-  },
+    },
+    getCoupons() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
+      vm.isLoading=true;
+      this.$http.get(url, vm.tempProduct).then((response) => {
+        vm.isLoading=false;
+        vm.coupons = response.data.coupons;
+        console.log(response);
+      });
+    },
+     openCouponsModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+      this.getCoupons();
+      $('#couponsModal').modal('show')              // bs 提供給予控制 modal 的 methods
+    },
+
+
 
 },
   created() {
     this.getProducts();
     this.getCart();
+    this.getCoupons();
   },
 
   components:{
     Navbar,
+    CouponsModal,
   }
 }
 
