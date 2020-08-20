@@ -5,57 +5,48 @@
         <loading :active.sync="isLoading" loader="dots"/>
   
         
-                <div class="box" >
+                <div class="box box-shadow" >
                         <div class="box-picture">
                            <div 
                             class="box-img"
                             :style="{backgroundImage:`url(${product.imageUrl})`}">
                            </div>
                         </div>
-                        
-                       
                         <div class="box-content">
                             <span class="box-category badge badge-secondary">{{product.category}}</span>
-                            <h5 class="box-title">
-                                <a href="#" class="text-dark">{{product.title}}</a>
-                            </h5>
-                            <p class="card-text">{{product.content}}</p>
-                            <p class="card-text">{{product.desciption}}</p>
-                            <div class="box-price">
-                                <del>原價 {{product.origin_price}} 元</del>
-                                <div>特價 {{product.price}} 元</div>
-                            </div>
-                            <div>
-                              <select v-model="product.num">
-                                <option :value="num" v-for="num in 10" :key="num">
-                                  選購 {{num}} {{product.unit}}
-                                </option>
-                              </select>
+                            <h5 class="box-title">{{product.title}}</h5>
+                            <p class="card-text card-text-content">{{product.content}}</p>
+                            <p class="card-text card-text-desciption">規格:{{product.desciption}}</p>
 
-                            </div>
+                            <div class="box-checkout">
+                              <div class="box-price">
+                                  <del>原價 {{product.origin_price}} 元</del>
+                                  <div class="price">特價 {{product.price}} 元</div>
+                              </div>
+                              <div class="box-select">
+                                  <select v-model="product.num">
+                                    <option :value="num" v-for="num in 10" :key="num">
+                                      選購 {{num}} {{product.unit}}
+                                    </option>
+                                  </select>
 
-                             <div>
-                              小計 <strong>{{ product.num * product.price }}</strong> 元
+                                  <div>
+                                  小計 <strong>{{ product.num * product.price }}</strong> 元
+                                </div>
+                                <button 
+                                    type="button" 
+                                    class="box-btn box-btn-addToCart"
+                                    @click="addToCart(product.id,product.num)">
+                                        <i 
+                                        class="fas fa-spinner fa-spin"
+                                        v-if="loadingItem"></i>
+                                        加到購物車
+                                </button>
+                              </div>
                             </div>
-                            <button 
-                                type="button" 
-                                class="box-btn box-btn-addToCart"
-                                @click="addToCart(product.id,product.num)">
-                                    <i 
-                                    class="fas fa-spinner fa-spin"
-                                    v-if="loadingItem"></i>
-                                    加到購物車
-                            </button>
-                              
-              
                         </div>
-                       
-                     
                 </div>
-        
-       
-
-      
+      <Footer/>
    </div>
           
 </template>
@@ -64,6 +55,7 @@
 <script>  
 import $ from 'jquery';
 import Navbar from "../component/NavbarCust";
+import Footer from "../component/FooterCust";
 
 export default {
   data() {
@@ -121,16 +113,16 @@ export default {
     },
     components:{
       Navbar,
+      Footer,
     }
 }
 </script>  
  
  <style scoped lang="scss">
 *{
-    // border:none !important;
-    text-decoration: none;
     box-sizing: border-box;
 }
+
 
 @media screen and (min-width: 720px){
 .body{
@@ -163,8 +155,8 @@ export default {
         max-width: 960px;
         max-height: 720px ;
         margin: auto;
+        margin-top: 50px;
         padding: 8px;
-        border:solid 2px pink;
         display: flex;
         flex-wrap: wrap;
         .box-picture{
@@ -172,80 +164,86 @@ export default {
           
           .box-img{
             height: 360px;
-            border:solid 1px;
+            // border:solid 1px;
             background-position: center;
             background-size: cover;
           }
         }
         .box-content{
-           width: 50%;
-            border:solid 1px;
-            // padding: 30px;
-            // height: 130px;
+            width: 50%;
+            padding: 30px;
             position: relative;
+            .card-text{
+              margin-top: 50px;
+            }
+            .card-text-desciption{
+              font-size: 10px;
+            }
             .box-category{
-                border:solid 1px;
+            
             }
             .box-title{
-                font-size: 16px;
+                font-size: 20px;
             }
-            // .box-price{
-            //     position: absolute;
-            //     margin-top: 10px;
-            //     right: 0;
-            // }
-
-            .box-btn{
-                text-decoration: none;
-                border-radius: 10px;
-                background-color: #fff;
+            .box-checkout{
+              display: flex;
+              margin-top: 50px;
+              .box-price{
+                width: 50%;
+              }
+              .box-select{
+                width: 50%;
+                 .box-btn{
+                    text-decoration: none;
+                    border-radius: 10px;
+                    background-color: #fff;
+                 }
+                 .ro-btn,button{
+                    color:saddlebrown;
+                  }
+              }
             }
-            .box-btn-addToCart{
-                // position: absolute;
-                // right: 0;
-            }
-            a{
-                color:none !important;
-            }
-            .ro-btn,button{
-                color:saddlebrown;
-            }
+              
+            
         }
      
             
         
     }
+    .box-shadow {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 960;
+    }
 
-    
-    // .box-shadow {
-    //     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    //     transition: 0.3s;
-    //     width: 960;
-    // }
-
-    // .box-shadow:hover {
-    //     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    // }
-
-
+    .box-shadow:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
 } 
 
 
 }
-
     .box{
-     
        .box-picture{
          width: 100% ;
+        
          .box-img{
             height: 360px;
-            border:solid 1px;
+            // border:solid 1px;
             background-position: center;
             background-size: cover;
           }
        }
        .box-content{
          width: 100% ;
+         .box-checkout{
+           text-align: center;
+         }
+         .box-price{
+           .price{
+             font-size: 20px;
+           }
+         }
        }
        
     }

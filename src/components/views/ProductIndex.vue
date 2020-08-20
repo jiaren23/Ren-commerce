@@ -1,8 +1,7 @@
 <template>
    <div class="body">
-    <div class="coupon" @click="openCouponsModal">點我優惠券<br>(要加浮動)</div>
      <Navbar/>
-     <CouponsModal/>
+     <!-- <CouponsModal/> -->
      <loading :active.sync="isLoading" loader="dots"/>
      <img src="https://d2xwhsqvg2p5k2.cloudfront.net/wp-content/uploads/2020/03/slide-011.jpg" alt=""/>
         <div class="content">
@@ -41,17 +40,100 @@
                                     加到購物車
                             </button>
                         </div>
-             
                 </div>
-        
         </div>
+        <Footer/>
    </div>
 </template>
+
+<script>  
+import $ from 'jquery';
+import Navbar from "../component/NavbarCust";
+import Footer from "../component/FooterCust";
+import CouponsModal from "./CouponsModal"
+
+export default {
+  data() {
+      return {
+        products: [],
+        status:{
+          loadingItem:'',
+        },
+        cart:{},
+        isLoading: false,
+      }
+  },
+  methods : {
+    getProducts() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
+      vm.isLoading = true;
+      this.$http.get(url).then((response) => {
+        vm.products = response.data.products;
+        console.log(response);
+        vm.isLoading = false;
+      });
+    },
+    addToCart(id,qty=1){
+       const vm = this;
+       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+       let cart = {
+         product_id : id,
+         qty : qty,
+        }   
+      this.$http.post(url,{data:cart}).then((response) => {
+          // vm.product = response.data.product;
+          // vm.product.num = 1 ;
+          console.log(response.data);
+          vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
+          vm.getCart();       
+          vm.$router.go(0); // 重新整理頁面 - 解決加入購物車後 modalCart 不能馬上讀到 getCart 的問題   :  原生js寫法 :   location.reload();
+    });
+   
+  },
+    getCart(){
+       const vm = this;
+       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
+       vm.isLoading = true;
+       this.$http.get(url).then((response) => {
+          vm.cart = response.data.data;
+          vm.isLoading = false;
+          console.log(response.data.data.carts);
+       });
+    },
+    getCoupons() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
+      vm.isLoading=true;
+      this.$http.get(url, vm.tempProduct).then((response) => {
+        vm.isLoading=false;
+        vm.coupons = response.data.coupons;
+        console.log(response);
+      });
+    },
+     openCouponsModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+      this.getCoupons();
+      $('#couponsModal').modal('show')              // bs 提供給予控制 modal 的 methods
+    },
+},
+  created() {
+    this.getProducts();
+    this.getCart();
+    this.getCoupons();
+  },
+
+  components:{
+    Navbar,
+    Footer,
+    CouponsModal,
+  }
+}
+</script> 
 
 <style scoped lang="scss">
 *{
     border:none !important;
-    text-decoration: none;
+    // text-decoration: none;
 }
 .body{
   margin: auto;
@@ -60,22 +142,6 @@
   position: relative;
   img{
     width: 100%;
-  }
-  .coupon{
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color:rgb(187, 187, 187);
-    color: #000;
-    font-weight: 500;
-    z-index: 900;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    cursor: pointer; 
   }
   .content{
     max-width: 960px;
@@ -153,96 +219,8 @@
        
     }
 }
-
-
 </style> 
 
-
-<script>  
-import $ from 'jquery';
-import Navbar from "../component/NavbarCust";
-import CouponsModal from "./CouponsModal"
-
-export default {
-  data() {
-      return {
-        products: [],
-        status:{
-          loadingItem:'',
-        },
-        cart:{},
-        isLoading: false,
-      }
-  },
-  methods : {
-    getProducts() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
-      vm.isLoading = true;
-      this.$http.get(url).then((response) => {
-        vm.products = response.data.products;
-        console.log(response);
-        vm.isLoading = false;
-      });
-    },
-    addToCart(id,qty=1){
-       const vm = this;
-       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
-       let cart = {
-         product_id : id,
-         qty : qty,
-        }   
-      this.$http.post(url,{data:cart}).then((response) => {
-          // vm.product = response.data.product;
-          // vm.product.num = 1 ;
-          console.log(response.data);
-          vm.status.loadingItem = '';             // 將原本的 vm.isLoading = false;   ** 改成 如果讀取完要改成 空的
-          vm.getCart();       
-          vm.$router.go(0); // 重新整理頁面 - 解決加入購物車後 modalCart 不能馬上讀到 getCart 的問題   :  原生js寫法 :   location.reload();
-    });
-   
-  },
-    getCart(){
-       const vm = this;
-       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;   // 多加 參數 id 
-       vm.isLoading = true;
-       this.$http.get(url).then((response) => {
-          vm.cart = response.data.data;
-          vm.isLoading = false;
-          console.log(response.data.data.carts);
-       });
-    },
-    getCoupons() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
-      vm.isLoading=true;
-      this.$http.get(url, vm.tempProduct).then((response) => {
-        vm.isLoading=false;
-        vm.coupons = response.data.coupons;
-        console.log(response);
-      });
-    },
-     openCouponsModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
-      this.getCoupons();
-      $('#couponsModal').modal('show')              // bs 提供給予控制 modal 的 methods
-    },
-
-
-
-},
-  created() {
-    this.getProducts();
-    this.getCart();
-    this.getCoupons();
-  },
-
-  components:{
-    Navbar,
-    CouponsModal,
-  }
-}
-
-</script> 
 
 
 

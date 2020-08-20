@@ -11,29 +11,24 @@
         <li class="nav-item active">
           <router-link class="nav-link text-center" :to="`/store/productIndex`"> 逛商品 </router-link> 
         </li>
+         <li 
+           class="nav-item active" 
+          v-if="$router.history.current['path'] !== '/store/checkOut'">
+          <a class="nav-link text-center " @click="openCouponsModal"> 優惠券 </a>  
+        </li>
         <li 
           class="nav-item active" 
           v-if="$router.history.current['path'] !== '/store/checkOut'">
           <a class="nav-link text-center " @click="openCartModal"> 購物車 </a> 
         </li>
-        <!-- <li 
-           class="nav-item active" 
-          v-if="$router.history.current['path'] !== '/store/checkOut'">
-          <a class="nav-link text-center " @click="openModal"> 優惠券 </a>  
-        </li> -->
         <li class="nav-item">
          <router-link class="nav-link text-center" :to="`/admin/productList`">管理員登入</router-link> 
         </li>
-         <!-- <li class="nav-item" 
-          v-if="$router.history.current['path'] !== '/store/checkOut'">
-           <router-link :to="`/store/checkOut`">結帳去</router-link>    
-        </li> -->
-                                                                
-
       </ul>
     </div>
   </nav>
   <CartModal></CartModal>
+  <CouponsModal/>
 
 
     
@@ -42,6 +37,7 @@
 
 <script>
 import CartModal from "../views/CartModal"
+import CouponsModal from "../views/CouponsModal"
 
 import $ from 'jquery';
 export default {
@@ -74,17 +70,30 @@ export default {
           vm.cart = response.data.data;
           console.log(response.data.data.carts);
       });
-      },  
-
-
-
+      },
+      getCoupons() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
+      vm.isLoading=true;
+      this.$http.get(url, vm.tempProduct).then((response) => {
+        vm.isLoading=false;
+        vm.coupons = response.data.coupons;
+        console.log(response);
+      });
+    },
+     openCouponsModal(){                          // 新增 參數 ( 是否是新的 , item(原有的 item) )
+      this.getCoupons();
+      $('#couponsModal').modal('show')              // bs 提供給予控制 modal 的 methods
+    },  
   },
  
   created(){
     this.getCart();
+    this.getCoupons();
   },
   components:{
     CartModal,
+    CouponsModal,
   }
 }
 </script>

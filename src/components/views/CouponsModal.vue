@@ -22,7 +22,8 @@
                             <th>有效日期</th>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, key) in coupons" :key="key">
+                            <tr 
+                                v-for="(item, key) in coupons" :key="key">
                                 <td class="align-middle">
                                     <button 
                                         type="button" 
