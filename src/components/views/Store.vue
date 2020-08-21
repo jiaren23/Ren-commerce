@@ -9,7 +9,7 @@
           <div class="web-box-img"><img src="../../assets/image/store-pic1.jpg"></div>
           <div class="box-content">
             <h5>還是用 BITPLAY SNAP! CASE 最順手</h5>
-            <p>你有聽過bitplay SNAP! Case與 bitplay HD外接式手機鏡頭嗎？有好 […]...</p>
+            <p>你有聽過bitplay SNAP! Case與 bitplay HD外接式手機鏡頭嗎？有好 […]...<br><br><span class="arrow">➥&nbsp;&nbsp;</span><span class="see-more">See More</span></p>
           </div>
         </a>
       </div>
@@ -18,7 +18,7 @@
           <div class="web-box-img"><img src="../../assets/image/store-pic2.jpg"></div>
           <div class="box-content">
             <h5>BITPLAY 豐富手機攝影的萬用配件</h5>
-            <p>接觸台灣設計品牌bitplay已經快要三年時間，除了和品牌一起成長外，同時也開啟了我對手機...</p>
+            <p>接觸台灣設計品牌bitplay已經快要三年時間，除了和品牌一起成長外，同時也開啟了我對手機...<br><br><span class="arrow">➥&nbsp;&nbsp;</span><span class="see-more">See More</span></p>
           </div>
         </a>
       </div>
@@ -27,7 +27,7 @@
           <div class="web-box-img"><img src="../../assets/image/store-pic3.jpg"></div>
           <div class="box-content">
             <h5>集防護、設計與功能於一身</h5>
-            <p>為了要讓行動攝影更為「直覺」，讓你拿出手機就可以瞬間變身生活探險家到處探索。bitplay...</p>
+            <p>為了要讓行動攝影更為「直覺」，讓你拿出手機就可以瞬間變身生活探險家到處探索。bitplay...<br><br><span class="arrow">➥&nbsp;&nbsp;</span><span class="see-more">See More</span></p>
           </div>
         </a>
       </div>
@@ -119,10 +119,28 @@
             color:rgb(97, 84, 84) ;
         }
         .box-content{
+          padding: 20px 10px;
           p{
             margin-top: 20px;
           }
-          padding: 20px 10px;
+          .see{
+            color: red;
+          }
+          .arrow{
+              animation: arrow 2s infinite;
+              color:rgb(116, 108, 108) !important;
+          }
+          @keyframes arrow{
+              0%{
+                  opacity: 0.5;
+              }
+              50%{
+                  opacity: 1;
+              }
+              100%{
+                  opacity: 0.5;        
+              }
+          }  
         }
       }   
     }
