@@ -2,11 +2,11 @@
    <div class="mr-4 ml-4">
                 <Navbar/>
                 <loading :active.sync="isLoading" loader="dots"/>
-   
+                <h1>您的訂單</h1>
                 <div 
                     class="my-5 row justify-content-center" 
                     v-if="cart.total !== 0">    <!-- 這裡判斷如果都沒加進購物車 則 此表格隱藏 -->
-                   <h1>您的訂單</h1>
+                   
                    <div class="my-5 row justify-content-center">
                         <table class="table">
                         <thead>
@@ -221,5 +221,7 @@ import $ from 'jquery';
 
 
 <style scoped>
-/* .modal-backdrop.show  */
+h1{
+    text-align: center;
+}
 </style>

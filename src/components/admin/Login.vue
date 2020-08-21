@@ -1,8 +1,9 @@
 <template> 
      <div>
-        <form @submit.prevent="sigin">
-            <h1>Please sign in</h1>
-            <div>
+        <Navbar/>
+        <h1>管理員登入</h1>
+        <form @submit.prevent="sigin">      
+            <div class="login">
                 <label for="inputEmail">帳號</label>
                 <input 
                     type="email" 
@@ -21,6 +22,7 @@
                     v-model="user.password">
             </div>
             <button 
+                class="btn"
                 type="submit"
                 @click="sigin"
                 @keydown.enter="sigin">登入</button>
@@ -29,6 +31,7 @@
 </template>   
 
 <script>
+     import Navbar from "../component/NavbarCust";
      export default{
         name:"Login",
         data() {
@@ -51,6 +54,9 @@
                 })
 
             }
+        },
+        components:{
+            Navbar
         }
     }
 </script>
@@ -62,12 +68,16 @@
         padding: 0;
         text-decoration: none;
     }
-    div{
+    h1{
+        text-align: center;
+    }
+    .login{
         margin: 10px 0;
     }
     form{
         width: 300px;
         margin: auto;
+        margin-top: 30px;
         display: block;
         position: relative;
         label{
@@ -76,7 +86,8 @@
         input{
             padding: 2px;
         }
-        button{
+       .btn{
+            margin-top: 5px;
             padding: 5px;
             position: absolute;
             right: 0;

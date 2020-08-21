@@ -11,14 +11,10 @@
         <li class="nav-item active">
           <router-link class="nav-link text-center" :to="`/store/productIndex`"> 逛商品 </router-link> 
         </li>
-         <li 
-           class="nav-item active" 
-          v-if="$router.history.current['path'] !== '/store/checkOut'">
+         <li class="nav-item active">
           <a class="nav-link text-center " @click="openCouponsModal"> 優惠券 </a>  
         </li>
-        <li 
-          class="nav-item active" 
-          v-if="$router.history.current['path'] !== '/store/checkOut'">
+        <li  class="nav-item active">
           <a class="nav-link text-center " @click="openCartModal"> 購物車 </a> 
         </li>
         <li class="nav-item">
