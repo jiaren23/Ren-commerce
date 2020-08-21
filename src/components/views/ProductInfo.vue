@@ -156,6 +156,7 @@ export default {
         max-height: 720px ;
         margin: auto;
         margin-top: 50px;
+        margin-bottom: 100px;
         padding: 8px;
         display: flex;
         flex-wrap: wrap;
@@ -224,9 +225,9 @@ export default {
 
 }
     .box{
+       padding: 20px;
        .box-picture{
-         width: 100% ;
-        
+         width: 100% ;        
          .box-img{
             height: 360px;
             // border:solid 1px;

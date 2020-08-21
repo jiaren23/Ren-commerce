@@ -22,7 +22,7 @@
           <a class="nav-link text-center " @click="openCartModal"> 購物車 </a> 
         </li>
         <li class="nav-item">
-         <router-link class="nav-link text-center" :to="`/admin/productList`">管理員登入</router-link> 
+         <router-link class="nav-link text-center" :to="`/login`">管理員登入</router-link> 
         </li>
       </ul>
     </div>
